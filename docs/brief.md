@@ -12,7 +12,7 @@ L'application doit permettre de visualiser les membres disponibles, de leur adre
 - Une première version peut être concentrée dans `index.php`; des fichiers PHP supplémentaires sont acceptés si cela rend l'authentification, l'administration et les actions métier plus sûres et maintenables.
 - Base de données locale SQLite (fichier `.sqlite` hors de l'accès public si l'application est ensuite déployée).
 - Carte basée sur OpenStreetMap, via une bibliothèque gratuite telle que Leaflet.
-- Envoi d'e-mails de test via MailHog en environnement local, sans livraison vers de vraies boîtes mail.
+- Envoi d'e-mails de test via Mailpit en environnement local, sans livraison vers de vraies boîtes mail.
 - Interface en français, adaptée aussi bien à un usage ordinateur que mobile.
 
 ## Rôles
@@ -39,7 +39,7 @@ L'application doit permettre de visualiser les membres disponibles, de leur adre
 ### Invitation et création de compte
 
 1. L'administrateur crée une invitation à partir de l'adresse e-mail d'un futur membre.
-2. L'application envoie un e-mail MailHog contenant un lien d'invitation à usage limité dans le temps.
+2. L'application envoie un e-mail Mailpit contenant un lien d'invitation à usage limité dans le temps.
 3. Le destinataire ouvre le lien, complète son profil et choisit son mot de passe.
 4. Son compte est activé et il peut se connecter.
 
@@ -48,7 +48,7 @@ L'application doit permettre de visualiser les membres disponibles, de leur adre
 - Une page de connexion demande l'adresse e-mail et le mot de passe.
 - Les mots de passe sont stockés de façon sécurisée avec les fonctions PHP prévues à cet effet (`password_hash` / `password_verify`).
 - En cas d'oubli, un membre saisit son adresse e-mail.
-- L'application envoie, dans MailHog en local, un lien de réinitialisation temporaire.
+- L'application envoie, dans Mailpit en local, un lien de réinitialisation temporaire.
 - Le lien permet de définir un nouveau mot de passe puis d'accéder au compte.
 
 ### Profil et disponibilités
@@ -81,7 +81,7 @@ Le formulaire de demande doit permettre d'indiquer au moins :
 
 ### Notifications et réponse à une demande
 
-1. Lorsqu'un membre envoie une demande, le destinataire reçoit un e-mail de notification dans MailHog.
+1. Lorsqu'un membre envoie une demande, le destinataire reçoit un e-mail de notification dans Mailpit.
 2. L'e-mail contient les détails principaux et un lien sécurisé vers la demande sur la plateforme.
 3. Une fois connecté, le destinataire peut : accepter, refuser ou proposer un ajustement (par exemple une autre heure ou un autre point de passage).
 4. Le demandeur reçoit à son tour une notification e-mail avec la réponse et les éventuels ajustements.
@@ -114,14 +114,14 @@ Le panneau d'administration, accessible uniquement au rôle administrateur, doit
 - Les jetons d'invitation et de réinitialisation doivent être aléatoires, à usage unique et expirer.
 - Les entrées utilisateur doivent être validées côté serveur et échappées à l'affichage pour limiter les injections et XSS.
 - Les actions sensibles doivent être protégées contre les requêtes CSRF.
-- La base SQLite, les secrets et la configuration MailHog ne doivent pas être exposés par le serveur web.
+- La base SQLite, les secrets et la configuration Mailpit ne doivent pas être exposés par le serveur web.
 - La carte n'affiche qu'une position ou une zone approximative avant la mise en relation, jamais l'adresse exacte.
 - Dans le cadre de cette petite chorale, les membres authentifiés peuvent consulter les adresses e-mail et numéros de téléphone des personnes impliquées dans le covoiturage. La collecte de ces coordonnées doit néanmoins être expliquée aux membres.
 
 ## Première version livrable (MVP)
 
 1. Installation locale PHP + SQLite et structure de base de données initiale.
-2. Connexion, invitation par administrateur, inscription par invitation et réinitialisation de mot de passe avec MailHog.
+2. Connexion, invitation par administrateur, inscription par invitation et réinitialisation de mot de passe avec Mailpit.
 3. Gestion du profil et du statut conducteur/passager.
 4. Annuaire privé avec carte OpenStreetMap/Leaflet.
 5. Création d'une demande de covoiturage et notifications e-mail de test.

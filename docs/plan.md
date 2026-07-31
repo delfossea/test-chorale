@@ -2,17 +2,17 @@
 
 ## Principes de réalisation
 
-Le MVP privilégie une application PHP simple, rapide à lancer localement et sans dépendance applicative lourde : PHP avec PDO/SQLite, HTML/CSS/JavaScript léger, Leaflet chargé depuis CDN pour la carte et MailHog pour les e-mails de test.
+Le MVP privilégie une application PHP simple, rapide à lancer localement et sans dépendance applicative lourde : PHP avec PDO/SQLite, HTML/CSS/JavaScript léger, Leaflet chargé depuis CDN pour la carte et Mailpit pour les e-mails de test.
 
 Même si le point d'entrée peut être `index.php`, le code sera séparé dans quelques fichiers PHP (configuration, base de données, authentification, pages et actions) afin de conserver des contrôles d'accès et des formulaires sûrs. Il s'agit d'une application mono-chorale.
 
 ## Étape 1 — Initialisation locale et socle technique
 
 - Créer l'arborescence du projet (`public` ou point d'entrée, données SQLite, fichiers d'aide et styles).
-- Ajouter une configuration locale documentée : URL de l'application, chemin de la base SQLite et paramètres SMTP MailHog (`localhost:1025`).
+- Ajouter une configuration locale documentée : URL de l'application, chemin de la base SQLite et paramètres SMTP Mailpit (`localhost:1025`).
 - Prévoir un script ou une initialisation automatique de la base de données.
 - Ajouter des données de démonstration minimales, dont un administrateur initial, afin de tester le parcours complet.
-- Documenter le lancement avec le serveur PHP intégré et l'accès à l'interface MailHog (habituellement `http://localhost:8025`).
+- Documenter le lancement avec le serveur PHP intégré et l'accès à l'interface Mailpit (habituellement `http://localhost:8025`).
 
 **Vérification :** l'application démarre localement, SQLite est créé et un administrateur peut se connecter.
 
@@ -47,17 +47,17 @@ Prévoir les contraintes d'intégrité (e-mail unique, clés étrangères, évé
 
 - Créer le panneau administrateur avec une liste des membres et leur état (invité, actif, désactivé).
 - Ajouter la création, modification et désactivation d'un membre ainsi que la création et le renvoi d'invitations.
-- Implémenter l'envoi d'un e-mail d'invitation via MailHog avec lien contenant un jeton à usage unique et expirant.
+- Implémenter l'envoi d'un e-mail d'invitation via Mailpit avec lien contenant un jeton à usage unique et expirant.
 - Créer la gestion des événements : ajouter, modifier, lister et, si nécessaire, annuler une répétition ou un concert.
 
-**Vérification :** un administrateur crée un événement puis invite un nouveau membre ; l'e-mail apparaît dans MailHog et le lien est utilisable une seule fois.
+**Vérification :** un administrateur crée un événement puis invite un nouveau membre ; l'e-mail apparaît dans Mailpit et le lien est utilisable une seule fois.
 
 ## Étape 5 — Inscription, connexion et mot de passe oublié
 
 - Permettre à un invité de définir son identité, son téléphone facultatif et son mot de passe depuis son lien d'invitation.
 - Ajouter les écrans de connexion et de déconnexion.
 - Ajouter la demande de réinitialisation et l'écran de choix d'un nouveau mot de passe.
-- Envoyer le lien de réinitialisation dans MailHog, avec jeton expirant et à usage unique.
+- Envoyer le lien de réinitialisation dans Mailpit, avec jeton expirant et à usage unique.
 
 **Vérification :** un nouveau membre peut finaliser son compte, se connecter, réinitialiser son mot de passe puis se reconnecter.
 
@@ -82,13 +82,13 @@ Prévoir les contraintes d'intégrité (e-mail unique, clés étrangères, évé
 ## Étape 8 — Demandes de covoiturage et réponses
 
 - Créer le formulaire de demande avec sélection obligatoire d'un événement, lieu/heure de passage et message libre.
-- Enregistrer la demande avec le statut `en_attente` et envoyer une notification MailHog au destinataire.
+- Enregistrer la demande avec le statut `en_attente` et envoyer une notification Mailpit au destinataire.
 - Créer une page de détail réservée aux deux personnes concernées (et aux administrateurs).
 - Permettre au destinataire d'accepter, refuser ou proposer un ajustement ; conserver une trace de la réponse et modifier le statut.
 - Notifier le demandeur par e-mail de chaque réponse.
 - Ajouter une vue « Mes demandes » pour chaque membre et une vue de suivi dans l'administration.
 
-**Vérification :** le scénario complet « demande → notification → contre-proposition → notification → acceptation » fonctionne de bout en bout avec MailHog.
+**Vérification :** le scénario complet « demande → notification → contre-proposition → notification → acceptation » fonctionne de bout en bout avec Mailpit.
 
 ## Étape 9 — Contrôles finaux et livraison locale
 
@@ -96,9 +96,9 @@ Prévoir les contraintes d'intégrité (e-mail unique, clés étrangères, évé
 - Vérifier les cas d'erreur : liens expirés/utilisés, e-mail inconnu, événement absent, demande à soi-même, droits insuffisants et formulaire invalide.
 - Vérifier visuellement l'interface sur largeur mobile et ordinateur.
 - Revoir les libellés français, les informations de confidentialité et les messages e-mail.
-- Compléter un `README.md` : prérequis PHP/SQLite/MailHog, démarrage, compte administrateur de démonstration et procédure de réinitialisation des données de test.
+- Compléter un `README.md` : prérequis PHP/SQLite/Mailpit, démarrage, compte administrateur de démonstration et procédure de réinitialisation des données de test.
 
-**Critère de fin :** sur une installation locale neuve, un administrateur peut créer un événement, inviter deux membres, et ces membres peuvent compléter leur profil, se repérer approximativement sur la carte, échanger puis confirmer une demande de covoiturage avec les e-mails visibles dans MailHog.
+**Critère de fin :** sur une installation locale neuve, un administrateur peut créer un événement, inviter deux membres, et ces membres peuvent compléter leur profil, se repérer approximativement sur la carte, échanger puis confirmer une demande de covoiturage avec les e-mails visibles dans Mailpit.
 
 ## Hors périmètre du MVP
 
