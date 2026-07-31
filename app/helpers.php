@@ -4,7 +4,7 @@ require_once __DIR__ . '/db.php';
 
 function h(?string $value): string { return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8'); }
 function redirect(string $path): never { header('Location: ' . $path); exit; }
-function flash(string $type, ?string $message = null): ?string { if ($message !== null) { $_SESSION['flash'] = [$type,$message]; return null; } $f=$_SESSION['flash']??null; unset($_SESSION['flash']); return $f ? '<div class="flash '.h($f[0]).'">'.h($f[1]).'</div>' : null; }
+function flash(?string $type = null, ?string $message = null): ?string { if ($message !== null && $type !== null) { $_SESSION['flash'] = [$type,$message]; return null; } $f=$_SESSION['flash']??null; unset($_SESSION['flash']); return $f ? '<div class="flash '.h($f[0]).'">'.h($f[1]).'</div>' : null; }
 function csrf(): string { return $_SESSION['csrf'] ??= bin2hex(random_bytes(32)); }
 function verify_csrf(): void { if (!hash_equals($_SESSION['csrf'] ?? '', $_POST['csrf'] ?? '')) { http_response_code(419); exit('Requête expirée.'); } }
 function current_user(): ?array { static $user = false; if ($user !== false) return $user; if (empty($_SESSION['user_id'])) return $user = null; $s=db()->prepare('SELECT * FROM users WHERE id=?'); $s->execute([$_SESSION['user_id']]); return $user=$s->fetch() ?: null; }
