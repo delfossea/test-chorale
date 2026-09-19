@@ -1,4 +1,4 @@
-# Covoiturage Chorale
+# Covoiturage
 
 Application PHP privée de mise en relation pour le covoiturage d’une chorale.
 
